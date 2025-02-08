@@ -3,6 +3,8 @@ import Papa from 'papaparse';
 import { Trophy, Loader } from 'lucide-react';
 import _ from 'lodash';
 
+const ADMIN_PASSWORD = 'superbowl2024'; // You should change this to your desired password
+
 const SuperBowlSquares = () => {
   const [squares, setSquares] = useState(Array(100).fill(null));
   const [score, setScore] = useState({ chiefs: 0, eagles: 0 });
@@ -10,10 +12,50 @@ const SuperBowlSquares = () => {
   const [currentQuarter, setCurrentQuarter] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showAdmin, setShowAdmin] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [keyPresses, setKeyPresses] = useState([]);
 
   useEffect(() => {
     loadAndAssignNames();
+    loadGameState();
+
+    // Key press handler for admin panel
+    const handleKeyPress = (e) => {
+      if (e.key === 'a') {
+        const now = Date.now();
+        setKeyPresses(prev => {
+          const newPresses = [...prev, now].filter(time => now - time < 1000);
+          if (newPresses.length === 3) {
+            setShowAdmin(true);
+            return [];
+          }
+          return newPresses;
+        });
+      } else if (e.key === 'Escape') {
+        setShowAdmin(false);
+      }
+    };
+
+    window.addEventListener('keypress', handleKeyPress);
+    return () => window.removeEventListener('keypress', handleKeyPress);
   }, []);
+
+  const loadGameState = async () => {
+    try {
+      const res = await fetch('gameState.json');
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      const gameState = await res.json();
+      setScore(gameState.score);
+      setQuarterWinners(gameState.quarterWinners);
+      setCurrentQuarter(gameState.currentQuarter);
+    } catch (error) {
+      console.error('Error loading game state:', error);
+      // If there's an error loading game state, we'll just use the defaults
+    }
+  };
 
   const loadAndAssignNames = async () => {
     setLoading(true);
@@ -52,6 +94,42 @@ const SuperBowlSquares = () => {
     const chiefsDigit = getLastDigit(score.chiefs);
     const eaglesDigit = getLastDigit(score.eagles);
     return chiefsDigit * 10 + eaglesDigit;
+  };
+
+  const handleAdminAuth = (e) => {
+    e.preventDefault();
+    const password = e.target.password.value;
+    if (password === ADMIN_PASSWORD) {
+      setIsAuthenticated(true);
+    }
+    e.target.reset();
+  };
+
+  const updateScore = (team, value) => {
+    setScore(prev => ({
+      ...prev,
+      [team]: Math.max(0, prev[team] + value)
+    }));
+  };
+
+  const lockQuarter = () => {
+    const winningIndex = getWinningSquareIndex();
+    setQuarterWinners(prev => ({
+      ...prev,
+      [currentQuarter]: {
+        name: squares[winningIndex],
+        score: `${score.chiefs}-${score.eagles}`
+      }
+    }));
+    setCurrentQuarter(prev => Math.min(4, prev + 1));
+  };
+
+  const resetGame = () => {
+    if (window.confirm('Are you sure you want to reset the game? This will clear all scores and winners.')) {
+      setScore({ chiefs: 0, eagles: 0 });
+      setQuarterWinners({});
+      setCurrentQuarter(1);
+    }
   };
 
   if (loading) {
@@ -128,8 +206,12 @@ const SuperBowlSquares = () => {
                     {Array(10).fill(null).map((_, col) => {
                       const index = row * 10 + col;
                       const isWinning = getWinningSquareIndex() === index;
-                      const hasWon = Object.values(quarterWinners).some(
-                        winner => winner.name === squares[index]
+                      const hasWon = Object.entries(quarterWinners).some(
+                        ([quarter, winner]) => {
+                          const winningIndex = (getLastDigit(parseInt(winner.score.split('-')[0])) * 10) + 
+                                             getLastDigit(parseInt(winner.score.split('-')[1]));
+                          return winningIndex === index;
+                        }
                       );
                       
                       return (
