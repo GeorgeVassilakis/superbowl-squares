@@ -3,5 +3,5 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/SuperBowl-squares/',  // Replace with your repo name
+  base: '/superbowl-squares/',  // Replace with your repo name
 })
