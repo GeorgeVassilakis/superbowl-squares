@@ -75,27 +75,27 @@ const SuperBowlSquares = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
-      <div className="mb-8 text-center">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 text-transparent bg-clip-text mb-2">
+    <div className="max-w-4xl mx-auto p-2 md:p-4">
+      <div className="mb-6 md:mb-8 text-center">
+        <h1 className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 text-transparent bg-clip-text mb-2">
           Super Bowl LIX Squares
         </h1>
-        <div className="text-2xl font-bold">
+        <div className="text-xl md:text-2xl font-bold">
           <span className="text-red-600">Chiefs</span> vs <span className="text-green-700">Eagles</span>
         </div>
       </div>
       
       {/* Score Display */}
-      <div className="mb-12 p-4 bg-gradient-to-r from-red-100 to-green-100 rounded-lg">
-        <div className="text-2xl font-bold text-center">
+      <div className="mb-8 md:mb-12 p-3 md:p-4 bg-gradient-to-r from-red-100 to-green-100 rounded-lg">
+        <div className="text-xl md:text-2xl font-bold text-center">
           <div className="mb-2">Quarter {currentQuarter}</div>
           <span className="text-red-600">Chiefs {score.chiefs}</span> - <span className="text-green-700">Eagles {score.eagles}</span>
         </div>
       </div>
 
       {/* Grid Container */}
-      <div className="flex justify-center mb-8">
-        <div className="relative">
+      <div className="flex justify-center mb-8 overflow-x-auto pb-4">
+        <div className="relative min-w-fit">
           {/* Eagles Label (Top) */}
           <div className="absolute w-full text-center -top-8">
             <span className="font-bold text-green-700 text-lg">Eagles →</span>
@@ -110,9 +110,9 @@ const SuperBowlSquares = () => {
           <table className="border-collapse">
             <thead>
               <tr>
-                <th className="w-16 h-16 border bg-purple-100"></th>
+                <th className="w-10 h-10 md:w-16 md:h-16 border bg-purple-100"></th>
                 {Array(10).fill(null).map((_, i) => (
-                  <th key={i} className="w-16 h-16 border bg-green-100 text-center font-bold">
+                  <th key={i} className="w-10 h-10 md:w-16 md:h-16 border bg-green-100 text-center font-bold">
                     {i}
                   </th>
                 ))}
@@ -121,7 +121,7 @@ const SuperBowlSquares = () => {
             <tbody>
               {Array(10).fill(null).map((_, row) => (
                 <tr key={row}>
-                  <th className="w-16 h-16 border bg-red-100 text-center font-bold">
+                  <th className="w-10 h-10 md:w-16 md:h-16 border bg-red-100 text-center font-bold">
                     {row}
                   </th>
                   {Array(10).fill(null).map((_, col) => {
@@ -134,13 +134,13 @@ const SuperBowlSquares = () => {
                     return (
                       <td
                         key={col}
-                        className={`w-16 h-16 border text-center relative ${
+                        className={`w-10 h-10 md:w-16 md:h-16 border text-center relative ${
                           isWinning ? 'animate-pulse bg-green-200' : ''
                         }`}
                       >
                         <div className="flex items-center justify-center gap-1 p-1">
-                          <span className="text-sm">{squares[index]}</span>
-                          {hasWon && <Trophy size={16} className="text-yellow-500" />}
+                          <span className="text-[10px] md:text-sm">{squares[index]}</span>
+                          {hasWon && <Trophy size={12} className="text-yellow-500 md:size-4" />}
                         </div>
                       </td>
                     );
