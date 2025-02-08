@@ -1,0 +1,14 @@
+{
+  "name": "superbowl-squares-scripts",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Scripts for Superbowl Squares",
+  "main": "generate_squares.js",
+  "scripts": {
+    "generate": "node generate_squares.js"
+  },
+  "dependencies": {
+    "papaparse": "^5.4.1",
+    "lodash": "^4.17.21"
+  }
+} 
