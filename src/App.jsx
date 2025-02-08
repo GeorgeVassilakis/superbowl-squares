@@ -95,60 +95,62 @@ const SuperBowlSquares = () => {
 
       {/* Grid Container */}
       <div className="flex justify-center mb-8 overflow-x-auto pb-4">
-        <div className="relative min-w-fit">
-          {/* Eagles Label (Top) */}
-          <div className="absolute w-full text-center -top-8">
-            <span className="font-bold text-green-700 text-lg">Eagles →</span>
+        <div className="min-w-fit">
+          {/* Eagles Label */}
+          <div className="text-center mb-4">
+            <span className="font-bold text-green-700 text-base md:text-lg">Eagles →</span>
           </div>
+          
+          <div className="flex">
+            {/* Chiefs Label */}
+            <div className="pr-4 pt-12">
+              <span className="font-bold text-red-600 text-base md:text-lg">Chiefs ↓</span>
+            </div>
 
-          {/* Chiefs Label (Left) */}
-          <div className="absolute -left-20 h-full flex items-center">
-            <span className="font-bold text-red-600 text-lg">Chiefs ↓</span>
-          </div>
-
-          {/* Main Grid */}
-          <table className="border-collapse">
-            <thead>
-              <tr>
-                <th className="w-10 h-10 md:w-16 md:h-16 border bg-purple-100"></th>
-                {Array(10).fill(null).map((_, i) => (
-                  <th key={i} className="w-10 h-10 md:w-16 md:h-16 border bg-green-100 text-center font-bold">
-                    {i}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {Array(10).fill(null).map((_, row) => (
-                <tr key={row}>
-                  <th className="w-10 h-10 md:w-16 md:h-16 border bg-red-100 text-center font-bold">
-                    {row}
-                  </th>
-                  {Array(10).fill(null).map((_, col) => {
-                    const index = row * 10 + col;
-                    const isWinning = getWinningSquareIndex() === index;
-                    const hasWon = Object.values(quarterWinners).some(
-                      winner => winner.name === squares[index]
-                    );
-                    
-                    return (
-                      <td
-                        key={col}
-                        className={`w-10 h-10 md:w-16 md:h-16 border text-center relative ${
-                          isWinning ? 'animate-pulse bg-green-200' : ''
-                        }`}
-                      >
-                        <div className="flex items-center justify-center gap-1 p-1">
-                          <span className="text-[10px] md:text-sm">{squares[index]}</span>
-                          {hasWon && <Trophy size={12} className="text-yellow-500 md:size-4" />}
-                        </div>
-                      </td>
-                    );
-                  })}
+            {/* Main Grid */}
+            <table className="border-collapse">
+              <thead>
+                <tr>
+                  <th className="w-12 h-12 md:w-16 md:h-16 border bg-purple-100"></th>
+                  {Array(10).fill(null).map((_, i) => (
+                    <th key={i} className="w-12 h-12 md:w-16 md:h-16 border bg-green-100 text-center font-bold">
+                      {i}
+                    </th>
+                  ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {Array(10).fill(null).map((_, row) => (
+                  <tr key={row}>
+                    <th className="w-12 h-12 md:w-16 md:h-16 border bg-red-100 text-center font-bold">
+                      {row}
+                    </th>
+                    {Array(10).fill(null).map((_, col) => {
+                      const index = row * 10 + col;
+                      const isWinning = getWinningSquareIndex() === index;
+                      const hasWon = Object.values(quarterWinners).some(
+                        winner => winner.name === squares[index]
+                      );
+                      
+                      return (
+                        <td
+                          key={col}
+                          className={`w-12 h-12 md:w-16 md:h-16 border text-center relative ${
+                            isWinning ? 'animate-pulse bg-green-200' : ''
+                          }`}
+                        >
+                          <div className="flex items-center justify-center gap-1 p-1">
+                            <span className="text-[10px] md:text-sm">{squares[index]}</span>
+                            {hasWon && <Trophy size={12} className="text-yellow-500 md:size-4" />}
+                          </div>
+                        </td>
+                      );
+                    })}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
