@@ -2,6 +2,8 @@
 
 A digital Super Bowl squares board for Super Bowl LIX between the Kansas City Chiefs and the Philadelphia Eagles. This web application allows participants to view their squares and track winners throughout the game.
 
+https://georgevassilakis.github.io/superbowl-squares/
+
 ## Features
 
 - 10x10 grid with randomly assigned squares based on participant entries
@@ -30,7 +32,7 @@ This project is built with:
 
 ## Deployment
 
-The site is automatically deployed to GitHub Pages when changes are pushed to the main branch. You can view the live site at: https://yourusername.github.io/SuperBowl-squares/
+The site is automatically deployed to GitHub Pages when changes are pushed to the main branch.
 
 ## License
 
