@@ -1,9 +1,9 @@
 {
   "score": {
     "chiefs": 0,
-    "eagles": 7
+    "eagles": 10
   },
-  "currentQuarter": 1,
+  "currentQuarter": 2,
   "quarterWinners": {
     "1": {
       "name": "Wei Ye",
