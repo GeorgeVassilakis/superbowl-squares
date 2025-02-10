@@ -4,5 +4,10 @@
     "eagles": 7
   },
   "currentQuarter": 1,
-  "quarterWinners": {}
-} 
+  "quarterWinners": {
+    "1": {
+      "name": "Wei Ye",
+      "score": "0-7"
+    }
+  }
+}
