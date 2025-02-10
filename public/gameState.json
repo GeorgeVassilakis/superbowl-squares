@@ -1,9 +1,9 @@
 {
   "score": {
-    "chiefs": 0,
+    "chiefs": 6,
     "eagles": 34
   },
-  "currentQuarter": 3,
+  "currentQuarter": 4,
   "quarterWinners": {
     "1": {
       "name": "Wei Ye",
@@ -12,6 +12,10 @@
     "2": {
       "name": "Pia Olson",
       "score": "0-24"
+    },
+    "3": {
+      "name": "Dawn Bent",
+      "score": "6-34"
     }
   }
 }
